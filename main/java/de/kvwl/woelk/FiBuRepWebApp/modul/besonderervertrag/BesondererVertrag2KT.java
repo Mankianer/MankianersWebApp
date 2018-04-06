@@ -1,10 +1,17 @@
 package de.kvwl.woelk.FiBuRepWebApp.modul.besonderervertrag;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 
+import javax.activation.DataSource;
 import javax.persistence.*;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+
+import oracle.jdbc.datasource.OracleDataSource;
 
 @Entity
 @Table(name = "BESONDERERVERTRAG2KT")
@@ -42,7 +49,7 @@ public class BesondererVertrag2KT implements Serializable{
 		this.gesamt = gesamt;
 		this.vknr = vknr;
 	}
-
+	
 	public BesondererVertrag2KT() {
 //		this.eigene = 0;
 //		this.fremd = 0;

@@ -1,0 +1,10 @@
+@import "addons.scss";
+@import "default.scss";
+@import "designs.scss";
+
+.default {
+  @include vaadin-form-template;
+  @include vaadin-crud-template;
+  @include addons;
+  @include default;
+}
