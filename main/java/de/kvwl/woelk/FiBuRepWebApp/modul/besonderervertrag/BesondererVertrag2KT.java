@@ -2,14 +2,36 @@ package de.kvwl.woelk.FiBuRepWebApp.modul.besonderervertrag;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
+import javax.persistence.*;
+
+import org.springframework.data.annotation.Id;
+
+@Entity
+@Table(name = "BESONDERERVERTRAG2KT")
 public class BesondererVertrag2KT implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue
 	private int id;
+	
+//	@Column(name = "BESONDERERVERTRAGID")
 	private Besonderervertrag bsv;
+	
+	@Column(name = "EIGENE")
 	private double eigene;
+	
+	@Column(name = "FREMD")
 	private double fremd;
+	
+	@Column(name = "GESAMT")
 	private double gesamt;
+	
+	@Column(name = "VKNR")
 	private String vknr;
 
 	public BesondererVertrag2KT(int id, Besonderervertrag bsv, double eigene, double fremd, double gesamt, String vknr) {
@@ -19,6 +41,13 @@ public class BesondererVertrag2KT implements Serializable{
 		this.fremd = fremd;
 		this.gesamt = gesamt;
 		this.vknr = vknr;
+	}
+
+	public BesondererVertrag2KT() {
+//		this.eigene = 0;
+//		this.fremd = 0;
+//		this.gesamt = 0;
+		this.vknr = "";
 	}
 
 	public Besonderervertrag getBsv() {

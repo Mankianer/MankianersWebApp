@@ -23,6 +23,15 @@ public class Besonderervertrag implements Serializable{
 		this.sachkonto = sachkonto;
 	}
 
+	public Besonderervertrag() {
+		this.name = "";
+		this.quartal = "";
+		this.kontext = "";
+		lG = "";
+		lUG = "";
+		this.sachkonto = "";
+	}
+
 	public String getName() {
 		return name;
 	}

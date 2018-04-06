@@ -6,10 +6,14 @@ import java.util.Random;
 
 import javax.servlet.annotation.WebServlet;
 
+import org.vaadin.teemusa.sidemenu.SideMenu;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Resource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.shared.Registration;
@@ -23,7 +27,7 @@ import com.vaadin.ui.Grid.SelectionMode;
 
 import de.kvwl.woelk.FiBuRepWebApp.modul.besonderervertrag.Besonderervertrag;
 import de.kvwl.woelk.FiBuRepWebApp.ui.Report.ReportView;
-import de.kvwl.woelk.FiBuRepWebApp.ui.besondererVertrag.BesondereVertragUI;
+import de.kvwl.woelk.FiBuRepWebApp.ui.besondererVertrag.BesondereVertrag2KTUI;
 
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
@@ -39,29 +43,36 @@ import com.vaadin.ui.VerticalLayout;
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be 
  * overridden to add component to the user interface and initialize non-component functionality.
  */
-@Theme("mytheme")
+@Theme("default")
 public class MyUI extends UI {
 
 	private static Navigator navigator;
+	private SideMenu sideMenu = new SideMenu();
 	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	
-    	VerticalLayout cont = new VerticalLayout();
-    	VerticalLayout left = new VerticalLayout();
+    	setContent(sideMenu);
     	
-    	HorizontalSplitPanel hsp = new HorizontalSplitPanel(left, cont);
     	
-    	setContent(hsp);
     	
-    	navigator = new Navigator(this, cont);
-    	navigator.addView("BESONDERERVERTRAG", BesondereVertragUI.class);
-    	navigator.addView("", BesondereVertragUI.class);
-    	navigator.addView("REPORTVIEW", ReportView.class);
+    	navigator = new Navigator(this, sideMenu);
     	
-    	navigator.navigateTo("REPORTVIEW");
+    	navigator.addView("", BesondereVertrag2KTUI.class);
+    	addViewToSideBar("Besonderer Vertrags Verwaltung", "BESONDERERVERTRAG", BesondereVertrag2KTUI.class, null);
+    	addViewToSideBar("Reports", "REPORTVIEW", ReportView.class, null);
+//    	navigator.addView("BESONDERERVERTRAG", BesondereVertragUI.class);
+//    	navigator.addView("REPORTVIEW", ReportView.class);
+//    	
+//    	navigator.navigateTo("REPORTVIEW");
     	
     	setNavigator(navigator);
+    }
+    
+    private void addViewToSideBar(String lableName, String viewName, Class<? extends View> view, Resource icon)
+    {
+    	navigator.addView(viewName, view);
+		sideMenu.addNavigation(lableName, icon, viewName);
     }
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
